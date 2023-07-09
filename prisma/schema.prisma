@@ -23,7 +23,7 @@ model Tweet {
   createdAt DateTime @default(now())
 
   // onDelete: Cascade === if a user is deleted, delete all their tweets.
-  user User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   likes Like[]
 
   @@index([userId])
@@ -81,10 +81,12 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  
+
   // Non-Next Auth
-  tweets        Tweet[]
-  likes          Like[]
+  tweets    Tweet[]
+  likes     Like[]
+  followers User[]  @relation(name: "Followers")
+  follows   User[]  @relation(name: "Followers")
 }
 
 model VerificationToken {
